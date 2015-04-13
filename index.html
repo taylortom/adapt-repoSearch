@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+    <title>Adapt Learning GitHub Repository Search</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,500' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript" language="javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js" type="text/javascript" language="javascript"></script>
+    <script src="main.js" type="text/javascript" language="javascript"></script>
+</head>
+<style>
+    body {
+        font-family: 'Raleway'
+    }
+
+    .item {
+        padding: 3px;
+    }
+</style>
+<body>
+    <div class="header">
+        <h1>Adapt Learning GitHub Repo Search</h1>  
+    </div>
+
+    <!-- Handlebars template data (start) -->
+    <div class="template" style="display: none;">
+        {{#each this}}
+            <div class='item'><a href="{{this.html_url}}" target="_blank">{{this.name}}</a></div>
+        {{/each}}
+    </div>
+    <!-- Handlebars template data (end) -->
+</body>
+</html>
