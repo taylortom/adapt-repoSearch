@@ -65,8 +65,10 @@ $(function(){
         var templateData = Handlebars.compile($(".template").html());
         $(".template").remove();
 
+        $(".results .header").html(pItems.length + ' results found.');
+
         var html = templateData(pItems);
-        $(".container").html(html);
+        $(".results .container").html(html);
     }
 
     function getSearchString() {
