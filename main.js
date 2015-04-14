@@ -15,25 +15,37 @@ $(function(){
         "adaptive"
     ];
 
-    loadData();
+    startDataLoad();
 
-    // do this async
-    function loadData(data) {
-        if(data) {
-            if(totalResults === -1) {
-                if(data.total_count > RESULTS_API_LIMIT) {
-                    alert("Warning: only the first " + RESULTS_API_LIMIT + " results are available (search returned " + data.total_count + ")");
-                    totalResults = RESULTS_API_LIMIT;
-                }
-                else totalResults = data.total_count;
+    function startDataLoad() {
+        var baseURL = "https://api.github.com/search/repositories?" + SEARCH_QUERY + "&per_page=" + PER_PAGE + "&page=";
+        $.get(baseURL + 1, {}, function(data) {
+            if(data.total_count > RESULTS_API_LIMIT) {
+                alert("Warning: only the first " + RESULTS_API_LIMIT + " results are available (search returned " + data.total_count + ")");
+                totalResults = RESULTS_API_LIMIT;
             }
+            else totalResults = data.total_count;
+
             if(data.items) {
                 loaded += data.items.length;
                 items = items.concat(data.items);
             }
+
+            dataLoaded(data);
+
+            // start loading the rest
+            for(var i = 2, pages = Math.ceil(totalResults/PER_PAGE); i <= pages; i++) {
+                $.get(baseURL + i, {}, dataLoaded);
+            }
+        });
+    }
+
+    function dataLoaded(data) {
+        if(data.items) {
+            loaded += data.items.length;
+            items = items.concat(data.items);
         }
         if(loaded === totalResults) sortData();
-        else $.get(getSearchString(), {}, loadData);
     }
 
     function sortData() {
@@ -57,7 +69,7 @@ $(function(){
         $(".template").remove();
 
         var html = templateData(pItems);
-        $("body").append(html);
+        $(".container").html(html);
     }
 
     function getSearchString() {
