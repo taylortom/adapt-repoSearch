@@ -26,14 +26,9 @@ $(function(){
             }
             else totalResults = data.total_count;
 
-            if(data.items) {
-                loaded += data.items.length;
-                items = items.concat(data.items);
-            }
+            dataLoaded(data);
 
             console.log(totalResults + ' found, grabbing and filtering...');
-
-            dataLoaded(data);
 
             // start loading the rest
             for(var i = 2, pages = Math.ceil(totalResults/PER_PAGE); i <= pages; i++) {
