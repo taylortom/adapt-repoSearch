@@ -14,16 +14,20 @@
     .item {
         padding: 3px;
     }
+
+    .item a {
+        padding-left: 5px;
+    }
 </style>
 <body>
     <div class="header">
-        <h1>Adapt Learning GitHub Repo Search</h1>  
+        <h1>Adapt Learning GitHub Repo Search</h1>
     </div>
 
     <!-- Handlebars template data (start) -->
     <div class="template" style="display: none;">
         {{#each this}}
-            <div class='item'><a href="{{this.html_url}}" target="_blank">{{this.name}}</a></div>
+            <div class='item'>{{this.name}}<a href="{{this.html_url}}" target="_blank">{{this.html_url}}</a></div>
         {{/each}}
     </div>
     <!-- Handlebars template data (end) -->
