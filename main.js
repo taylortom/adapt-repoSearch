@@ -31,6 +31,8 @@ $(function(){
                 items = items.concat(data.items);
             }
 
+            console.log(totalResults + ' found, grabbing and filtering...');
+
             dataLoaded(data);
 
             // start loading the rest
